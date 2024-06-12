@@ -8,7 +8,7 @@ from data.constants.Basic import BACK
 
 
 class AccessesCallback(CallbackData, prefix="access*manager"):
-    id: str
+    uuid: str
 
 
 class AccessesPageCallback(CallbackData, prefix="page*access*callback"):
@@ -25,7 +25,7 @@ def accesses_pagination_keyboard(current_page: int, accesses):
     for i in range(start_index, end_index):
         keyboard.append([InlineKeyboardButton(
             text=accesses[i]['userid'],
-            callback_data=AccessesCallback(id=accesses[i]['userid']).pack()
+            callback_data=AccessesCallback(uuid=accesses[i]['uuid_key']).pack()
         )])
 
     # Navigation buttons

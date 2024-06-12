@@ -9,9 +9,9 @@ class AccessRepository(DefaultDataBase):
         query = "INSERT INTO `access` (`userid`, `uuid_key`) VALUES (%s, %s);"
         return self._insert(query, (userid, uuid_key))
 
-    def access(self, userid):
-        query = "SELECT * FROM `access` WHERE `userid` = %s;"
-        return self._select_one(query, (userid,))
+    def access(self, uuid_key):
+        query = "SELECT * FROM `access` WHERE `uuid_key` = %s;"
+        return self._select_one(query, (uuid_key,))
 
     def accesses(self):
         query = "SELECT * FROM `access`;"
