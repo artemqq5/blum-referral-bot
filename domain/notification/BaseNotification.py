@@ -31,7 +31,7 @@ class BaseNotification:
                     await bot.send_message(
                         chat_id=admin['userid'],
                         text=NEW_USER_INVITE_ADMIN.format(
-                            f"@{referral_user['username']} <b>({referral_user['userid']})</b>",
+                            f"{referral_user['username']} <b>({referral_user['userid']})</b>",
                             f"{user_join.username} <b>({user_join.id})</b>",
                             to_new_key
                         )
@@ -67,7 +67,7 @@ class BaseNotification:
             try:
                 await bot.send_message(
                     chat_id=admin['userid'],
-                    text=USER_HAS_KEY_ADMIN.format(f"@{user['username']} <b>({user['userid']})</b>")
+                    text=USER_HAS_KEY_ADMIN.format(f"{user['username']} <b>({user['userid']})</b>")
                 )
             except Exception as e:
                 print(f"user({admin}) | {e} ")
