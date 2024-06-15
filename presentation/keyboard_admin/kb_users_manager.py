@@ -17,11 +17,11 @@ class UsersPageCallback(CallbackData, prefix="page*users*callback"):
 
 
 def users_pagination_keyboard(current_page: int, users):
-    total_pages = math.ceil(len(users) / 1)
+    total_pages = math.ceil(len(users) / 10)
     keyboard = InlineKeyboardBuilder()
 
-    start_index = (current_page - 1) * 1
-    end_index = min(start_index + 1, len(users))
+    start_index = (current_page - 1) * 10
+    end_index = min(start_index + 10, len(users))
 
     for i in range(start_index, end_index):
         identify = f"{users[i]['firstname']} | {users[i]['username']}"

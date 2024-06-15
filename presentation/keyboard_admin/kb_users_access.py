@@ -52,6 +52,14 @@ def accesses_pagination_keyboard(current_page: int, accesses):
     return keyboard.as_markup()
 
 
-def access_detail_back(page_back):
+def access_detail_back(page_back, access_key):
     return InlineKeyboardBuilder(
-        [[InlineKeyboardButton(text=BACK, callback_data=f"BACKACCESSES_{page_back}")]]).as_markup()
+        [
+            [InlineKeyboardButton(text=BACK, callback_data=f"BACKACCESSES_{page_back}")],
+            [InlineKeyboardButton(text="Видалити", callback_data=f"DELETEACCESSCALLBACK_{access_key}")],
+        ]).as_markup()
+
+
+def access_back():
+    return InlineKeyboardBuilder(
+        [[InlineKeyboardButton(text=BACK, callback_data=f"BACKACCESSES_1")]]).as_markup()

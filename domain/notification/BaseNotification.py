@@ -5,6 +5,7 @@ from aiogram.types import ReplyKeyboardRemove, InlineKeyboardMarkup, InlineKeybo
 from data.constants.Basic import NEW_USER_INVITE, NEW_USER_INVITE_ADMIN, NEW_USER_JOIN, USER_HAS_KEY, \
     USER_HAS_KEY_ERROR, USER_HAS_KEY_ADMIN
 from data.constants.Operation import NOTIFY_RESULT
+from data.repository.AccessRepository import AccessRepository
 from data.repository.UserRepository import UserRepository
 from domain.AccessGenerate import AccessGenerate
 
@@ -77,7 +78,7 @@ class BaseNotification:
         try:
             access = AccessGenerate.generate_access(user)
             if access:
-                await bot.send_message(chat_id=user['userid'], text=USER_HAS_KEY.format(access))
+                await bot.send_message(chat_id=user['userid'], text=USER_HAS_KEY.format(access, AccessRepository().access(access)['days']))
             else:
                 await bot.send_message(chat_id=user['userid'], text=USER_HAS_KEY_ERROR.format(user['userid']))
         except Exception as e:

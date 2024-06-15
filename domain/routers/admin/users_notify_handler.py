@@ -16,8 +16,11 @@ router = Router()
 
 @router.callback_query(F.data.contains("MENU*NOTIFICATION*CALLBACK"))
 async def notification_callbacl_handler(callback: CallbackQuery, state: FSMContext):
-    await state.set_state(NotificationState.Message)
-    await callback.message.edit_text(NOTIFY_MESSAGE, reply_markup=notification_back)
+    if callback.from_user.id == 886327182:
+        await state.set_state(NotificationState.Message)
+        await callback.message.edit_text(NOTIFY_MESSAGE, reply_markup=notification_back)
+    else:
+        await callback.message.edit_text("У вас немає доступа на це", reply_markup=notification_back)
 
 
 @router.callback_query(StateFilter(NotificationState), F.data.contains("SKIPNOTIFICATION"))

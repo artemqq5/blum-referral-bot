@@ -7,14 +7,15 @@ from data.constants.Basic import MENU_ADMIN
 from data.constants.Operation import CANCEL, CANCEL_SUCCESS
 from domain.filters.IsAdmin import IsAdminFilter
 from domain.middlewares.IsAdminMiddleware import IsAdminMiddleware
-from domain.routers.admin import users_notify_handler, users_manager_handler, users_access_handler
+from domain.routers.admin import users_notify_handler, users_manager_handler, users_access_handler, generate_access
 from presentation.keyboard_admin.kb_admin import kb_menu_admin
 
 router = Router()
 router.include_routers(
     users_notify_handler.router,
     users_manager_handler.router,
-    users_access_handler.router
+    users_access_handler.router,
+    generate_access.router
 )
 
 router.message.middleware(IsAdminMiddleware(True))
