@@ -35,6 +35,7 @@ async def access_callbacl_handler(callback: CallbackQuery):
         ACCESS_MODEL_INFO.format(
             user['username'],
             user['userid'],
+            access['comment'],
             access['days'],
             access['uuid_key'],
             access['harddrive_id'],
