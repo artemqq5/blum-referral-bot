@@ -9,6 +9,7 @@ from data.constants.Basic import BACK
 
 class UsersCallback(CallbackData, prefix="users*manager"):
     id: str
+    page_back: int
 
 
 class UsersPageCallback(CallbackData, prefix="page*users*callback"):
@@ -16,36 +17,43 @@ class UsersPageCallback(CallbackData, prefix="page*users*callback"):
 
 
 def users_pagination_keyboard(current_page: int, users):
-    total_pages = math.ceil(len(users) / 10)
-    keyboard = []
+    total_pages = math.ceil(len(users) / 1)
+    keyboard = InlineKeyboardBuilder()
 
-    start_index = (current_page - 1) * 10
-    end_index = min(start_index + 10, len(users))
+    start_index = (current_page - 1) * 1
+    end_index = min(start_index + 1, len(users))
 
     for i in range(start_index, end_index):
-        keyboard.append([InlineKeyboardButton(
-            text=users[i]['userid'],
-            callback_data=UsersCallback(id=users[i]['userid']).pack()
-        )])
+        identify = f"{users[i]['firstname']} | {users[i]['username']}"
 
+        keyboard.row(InlineKeyboardButton(
+            text=identify,
+            callback_data=UsersCallback(id=users[i]['userid'], page_back=current_page).pack()
+        ))
+
+    nav = []
     # Navigation buttons
     if current_page > 1:
-        keyboard.append([InlineKeyboardButton(
+        nav.append(InlineKeyboardButton(
             text='<<--',
             callback_data=UsersPageCallback(page=current_page - 1).pack()
-        )])
-    if current_page < total_pages:
-        keyboard.append([InlineKeyboardButton(
-            text='-->>',
-            callback_data=UsersPageCallback(page=current_page + 1).pack()
-        )])
+        ))
 
-    keyboard.append([InlineKeyboardButton(
+    nav.append(InlineKeyboardButton(
         text=BACK,
         callback_data="BACKCATEGORY"
-    )])
+    ))
 
-    return InlineKeyboardBuilder(markup=keyboard).as_markup()
+    if current_page < total_pages:
+        nav.append(InlineKeyboardButton(
+            text='-->>',
+            callback_data=UsersPageCallback(page=current_page + 1).pack()
+        ))
+
+    keyboard.row(*nav)
+
+    return keyboard.as_markup()
 
 
-user_detail_back = InlineKeyboardBuilder([[InlineKeyboardButton(text=BACK, callback_data="BACKUSERS")]]).as_markup()
+def user_detail_back(page_back):
+    return InlineKeyboardBuilder([[InlineKeyboardButton(text=BACK, callback_data=f"BACKUSERS_{page_back}")]]).as_markup()

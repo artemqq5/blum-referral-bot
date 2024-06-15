@@ -9,6 +9,7 @@ from data.constants.Basic import BACK
 
 class AccessesCallback(CallbackData, prefix="access*manager"):
     uuid: str
+    page_back: int
 
 
 class AccessesPageCallback(CallbackData, prefix="page*access*callback"):
@@ -17,36 +18,40 @@ class AccessesPageCallback(CallbackData, prefix="page*access*callback"):
 
 def accesses_pagination_keyboard(current_page: int, accesses):
     total_pages = math.ceil(len(accesses) / 10)
-    keyboard = []
+    keyboard = InlineKeyboardBuilder()
 
     start_index = (current_page - 1) * 10
     end_index = min(start_index + 10, len(accesses))
 
     for i in range(start_index, end_index):
-        keyboard.append([InlineKeyboardButton(
-            text=accesses[i]['userid'],
-            callback_data=AccessesCallback(uuid=accesses[i]['uuid_key']).pack()
-        )])
+        activate = accesses[i]['harddrive_id'] is not None
+        keyboard.row(InlineKeyboardButton(
+            text=f"{activate} | {accesses[i]['comment']}",
+            callback_data=AccessesCallback(uuid=accesses[i]['uuid_key'], page_back=current_page).pack()
+        ))
 
+    nav = []
     # Navigation buttons
     if current_page > 1:
-        keyboard.append([InlineKeyboardButton(
+        nav.append(InlineKeyboardButton(
             text='<<--',
             callback_data=AccessesPageCallback(page=current_page - 1).pack()
-        )])
-    if current_page < total_pages:
-        keyboard.append([InlineKeyboardButton(
-            text='-->>',
-            callback_data=AccessesPageCallback(page=current_page + 1).pack()
-        )])
-
-    keyboard.append([InlineKeyboardButton(
+        ))
+    nav.append(InlineKeyboardButton(
         text=BACK,
         callback_data="BACKCATEGORY"
-    )])
+    ))
+    if current_page < total_pages:
+        nav.append(InlineKeyboardButton(
+            text='-->>',
+            callback_data=AccessesPageCallback(page=current_page + 1).pack()
+        ))
 
-    return InlineKeyboardBuilder(markup=keyboard).as_markup()
+    keyboard.row(*nav)
+
+    return keyboard.as_markup()
 
 
-access_detail_back = InlineKeyboardBuilder([[InlineKeyboardButton(text=BACK, callback_data="BACKACCESSES")]]).as_markup()
-
+def access_detail_back(page_back):
+    return InlineKeyboardBuilder(
+        [[InlineKeyboardButton(text=BACK, callback_data=f"BACKACCESSES_{page_back}")]]).as_markup()
