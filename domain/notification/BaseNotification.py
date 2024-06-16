@@ -78,7 +78,7 @@ class BaseNotification:
         try:
             access = AccessGenerate.generate_access(user)
             if access:
-                await bot.send_message(chat_id=user['userid'], text=USER_HAS_KEY.format(access, AccessRepository().access(access)['days']))
+                await bot.send_message(chat_id=user['userid'], text=USER_HAS_KEY.format(AccessRepository().access(access)['days'], access))
             else:
                 await bot.send_message(chat_id=user['userid'], text=USER_HAS_KEY_ERROR.format(user['userid']))
         except Exception as e:
