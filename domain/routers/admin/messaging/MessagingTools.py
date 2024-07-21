@@ -1,4 +1,5 @@
 from aiogram.fsm.context import FSMContext
+from aiogram_i18n import L
 from aiogram_i18n.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 
@@ -66,5 +67,45 @@ class MessagingTools:
             await bot.send_message(
                 chat_id=user_id,
                 text=data['message'],
+                reply_markup=kb_buttons
+            )
+
+    @staticmethod
+    async def preview_post_send(data, bot, i18n, user_id):
+
+        my_post = i18n.ADMIN.POST.TEMPLATE(
+            name=data['name'],
+            code=i18n.ADMIN.POST.CODE_REPLACE(),
+            year=data['year'],
+            temp=data['temp'],
+            desc=data['desc']
+        )
+
+        if len(data.get('buttons', [])) > 0:
+            kb_buttons = []
+            for btn in data.get('buttons'):
+                kb_buttons.append([InlineKeyboardButton(text=btn['btn_text'], url=btn['btn_url'])])
+            kb_buttons = InlineKeyboardMarkup(inline_keyboard=kb_buttons)
+        else:
+            kb_buttons = None
+
+        if data.get('photo', None):
+            await bot.send_photo(
+                chat_id=user_id,
+                photo=data.get('photo'),
+                caption=my_post,
+                reply_markup=kb_buttons
+            )
+        elif data.get('video', None):
+            await bot.send_video(
+                chat_id=user_id,
+                video=data.get('video'),
+                caption=my_post,
+                reply_markup=kb_buttons
+            )
+        else:
+            await bot.send_message(
+                chat_id=user_id,
+                text=my_post,
                 reply_markup=kb_buttons
             )

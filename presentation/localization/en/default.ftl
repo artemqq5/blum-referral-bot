@@ -88,3 +88,38 @@ NOTIFICATION-NEW_USER_BY_LINK = 👤 <b>A new user joined the bot via link!</b>
     Name: <b>@{$username}</b>
     Telegram ID: <code>{$user_id}</code>
     Joined: <b>{$join_at}</b>
+
+# POST CHANNEL
+ADMIN-POST = Create post 📌
+ADMIN-POST-CHOICE_CHANNEL = Choose a channel for posting 📢
+ADMIN-POST-SET_NAME = Movie title: 🎬
+ADMIN-POST-SET_YEAR = Specify the release year: 📅
+ADMIN-POST-SET_TEMP = Movie duration: ⏳
+ADMIN-POST-SET_DESC = Movie description (up to 1000 characters): 📖
+ADMIN-POST-SET_DESC_ERROR = Description length is <b>{$size}</b>, but should be no more than 1000 ❗️
+ADMIN-POST-SET_MEDIA = Media file (video\image): 🖼️🎥
+ADMIN-POST-SET_MEDIA_ERROR = Incorrect format, send (Photo\Video) in compressed format: ❌
+ADMIN-POST-SET_BUTTON = Add a button to the post? 🔘
+ADMIN-POST-SET_BUTTON_TEXT = Button text (preferably 20-30 characters): ✏️
+ADMIN-POST-BUTTON_TEXT_ERROR = Shorten to at least 50 characters, currently {$count} ❗️
+ADMIN-POST-SET_BUTTON_URL = Button link: 🔗
+ADMIN-POST-BUTTON_URL_ERROR = The link has an incorrect format, it must start with https:// and contain a site or a real contact in TG etc ❌
+ADMIN-POST-SET_BUTTON_NEXT = Do you want to add another button? ➕
+ADMIN-POST-PREVIEW_POST = If everything is correct, you can send it! ✅
+ADMIN-POST-SEND = Send 🚀
+ADMIN-POST-SEND_ERROR_DB = Failed to send (database) ❌
+ADMIN-POST-SEND_ERROR_TG = Failed to send (telegram) ❌
+ADMIN-POST-SEND_SUCCESS = Post successfully published! 🎉
+
+ADMIN-POST-CODE_REPLACE = Code will be generated upon publication
+
+ADMIN-POST-TEMPLATE = <b>{$name}</b> | code: <code>{$code}</code>
+    ━━━━━━━━━━━━━━━━
+    🎬 <b>Movie title:</b> {$name}
+    📅 <b>Release year:</b> {$year}
+    🕒 <b>Duration:</b> {$temp}
+
+    📖 <b>Description:</b>
+    {$desc}
+
+    🔍 <b>Search code:</b> <code>{$code}</code>

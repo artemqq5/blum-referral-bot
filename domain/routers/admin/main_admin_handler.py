@@ -11,6 +11,7 @@ from domain.routers.admin import users_manager_handler
 from domain.routers.admin.channel import add_channel_, channel_manage, delete_channel
 from domain.routers.admin.channel.link import link_manage
 from domain.routers.admin.messaging import messaging_main
+from domain.routers.admin.post import post_generate
 from presentation.keyboard_admin.kb_admin import kb_menu_admin, BackMainMenu
 
 router = Router()
@@ -20,7 +21,8 @@ router.include_routers(
     add_channel_.router,
     delete_channel.router,
     channel_manage.router,
-    link_manage.router
+    link_manage.router,
+    post_generate.router
 )
 
 router.message.middleware(IsRoleMiddleware(ADMIN))
