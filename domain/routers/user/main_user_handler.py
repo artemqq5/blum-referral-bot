@@ -1,26 +1,24 @@
 from aiogram import Router, types, F
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
+from aiogram_i18n import I18nContext
 
-from data.constants.Basic import MENU_USER
-from data.constants.Operation import *
+from data.default_constants import USER
 from data.repository.UserRepository import UserRepository
-from domain.filters.IsAdmin import IsAdminFilter
-from domain.middlewares.IsAdminMiddleware import IsAdminMiddleware
+from domain.filters.IsAdminFilter import IsAdminFilter
+from domain.middlewares.IsRoleMiddleware import IsRoleMiddleware
 
 router = Router()
 
 
-router.message.middleware(IsAdminMiddleware(False))
-router.callback_query.middleware(IsAdminMiddleware(False))
+router.message.middleware(IsRoleMiddleware(USER))
+router.callback_query.middleware(IsRoleMiddleware(USER))
 
 
 @router.message(Command("start"), IsAdminFilter(False))
-async def start(message: types.Message, state: FSMContext):
+async def start(message: types.Message, state: FSMContext, i18n: I18nContext):
     await state.clear()
-    user = UserRepository().user(message.from_user.id)
-    ref_to_key = 5 - (user['ref_count'] % 5)
-    await message.answer(MENU_USER.format(user['referral_url'], user['ref_count'], ref_to_key))
+    await message.answer(i18n.MAIN_MENU())
 
 # @router.message(F.text == CANCEL, IsAdminFilter(False))
 # async def cancel(message: types.Message, state: FSMContext):

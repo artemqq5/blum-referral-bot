@@ -1,6 +1,7 @@
 from aiogram.filters import BaseFilter
 from aiogram.types import Message
 
+from data.default_constants import ADMIN, USER
 from data.repository.UserRepository import UserRepository
 
 
@@ -10,4 +11,4 @@ class IsAdminFilter(BaseFilter):
         self.is_admin = is_admin
 
     async def __call__(self, message: Message):
-        return UserRepository().user(message.from_user.id)['is_admin'] == self.is_admin
+        return UserRepository().user(message.from_user.id)['role'] == (ADMIN if self.is_admin else USER)

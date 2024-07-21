@@ -1,5 +1,8 @@
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram_i18n import L
+from aiogram_i18n.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-# kb_menu_user = InlineKeyboardMarkup(inline_keyboard=[
-#     [InlineKeyboardButton(text=, callback_data=)],
-# ])
+
+def kb_menu_user(url):
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text=L.USER.OPEN_CHANNEL(), url=url)],
+    ])

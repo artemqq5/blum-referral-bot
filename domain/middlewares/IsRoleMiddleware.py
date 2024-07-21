@@ -6,9 +6,9 @@ from aiogram.types import TelegramObject
 from data.repository.UserRepository import UserRepository
 
 
-class IsAdminMiddleware(BaseMiddleware):
+class IsRoleMiddleware(BaseMiddleware):
 
-    def __init__(self, role: bool = False):
+    def __init__(self, role):
         self.role = role
 
     async def __call__(
@@ -22,7 +22,7 @@ class IsAdminMiddleware(BaseMiddleware):
 
         user_id = event.from_user.id
 
-        if not UserRepository().user(user_id)['is_admin'] == self.role:
+        if not UserRepository().user(user_id)['role'] == self.role:
             return
 
         return await handler(event, data)

@@ -2,40 +2,38 @@ from aiogram import Router, types, F
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery
+from aiogram_i18n import I18nContext
 
-from data.constants.Basic import MENU_ADMIN
-from data.constants.Operation import CANCEL, CANCEL_SUCCESS
-from domain.filters.IsAdmin import IsAdminFilter
-from domain.middlewares.IsAdminMiddleware import IsAdminMiddleware
-from domain.routers.admin import users_notify_handler, users_manager_handler, users_access_handler, generate_access
-from presentation.keyboard_admin.kb_admin import kb_menu_admin
+from data.default_constants import ADMIN
+from domain.filters.IsAdminFilter import IsAdminFilter
+from domain.middlewares.IsRoleMiddleware import IsRoleMiddleware
+from domain.routers.admin import users_manager_handler
+from domain.routers.admin.channel import add_channel_, channel_manage, delete_channel
+from domain.routers.admin.channel.link import link_manage
+from domain.routers.admin.messaging import messaging_main
+from presentation.keyboard_admin.kb_admin import kb_menu_admin, BackMainMenu
 
 router = Router()
 router.include_routers(
-    users_notify_handler.router,
     users_manager_handler.router,
-    users_access_handler.router,
-    generate_access.router
+    messaging_main.router,
+    add_channel_.router,
+    delete_channel.router,
+    channel_manage.router,
+    link_manage.router
 )
 
-router.message.middleware(IsAdminMiddleware(True))
-router.callback_query.middleware(IsAdminMiddleware(True))
+router.message.middleware(IsRoleMiddleware(ADMIN))
+router.callback_query.middleware(IsRoleMiddleware(ADMIN))
 
 
 @router.message(Command("start"), IsAdminFilter(True))
-async def start(message: types.Message, state: FSMContext):
+async def start(message: types.Message, state: FSMContext, i18n: I18nContext):
     await state.clear()
-    await message.answer(MENU_ADMIN, reply_markup=kb_menu_admin)
+    await message.answer(i18n.MAIN_MENU(), reply_markup=kb_menu_admin)
 
 
-@router.message(F.text == CANCEL, IsAdminFilter(True))
-async def cancel(message: types.Message, state: FSMContext):
+@router.callback_query(BackMainMenu.filter())
+async def back(callback: CallbackQuery, state: FSMContext, i18n: I18nContext):
     await state.clear()
-    await message.answer(CANCEL_SUCCESS)
-
-
-@router.callback_query(F.data.contains("BACKCATEGORY"))
-async def back_from_users(callback: CallbackQuery, state: FSMContext):
-    await state.clear()
-    await callback.message.edit_text(MENU_ADMIN, reply_markup=kb_menu_admin)
-
+    await callback.message.edit_text(i18n.MAIN_MENU(), reply_markup=kb_menu_admin)
