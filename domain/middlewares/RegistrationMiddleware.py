@@ -4,7 +4,6 @@ from aiogram import BaseMiddleware, types
 from aiogram.types import TelegramObject
 from aiogram_i18n import L
 
-from config import CHANNEL_ID
 from data.repository.UserRepository import UserRepository
 from domain.notification.NotificationAdmin import NotificationAdmin
 
