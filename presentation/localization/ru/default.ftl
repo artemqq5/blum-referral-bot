@@ -119,4 +119,10 @@ ADMIN-POST-CODE_REPLACE=Код будет сгенерирован при пуб
 ADMIN-POST-TEMPLATE = <b>{$name}</b> | код: <code>{$code}</code>
  ━━━━━━━━━━━━━━━━━
  🎬 <b>Название фильма:</b> {$name}
- 📅 <b>Год вы
+ 📅 <b>Год выпуска:</b> {$year}
+ 🕒 <b>Длительность:</b> {$temp}
+
+ 📖 <b>Описание:</b>
+ {$desc}
+
+ 🔍 <b>Код для поиска:</b> <code>{$code}</code>

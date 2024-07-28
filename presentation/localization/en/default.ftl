@@ -119,4 +119,10 @@ ADMIN-POST-CODE_REPLACE = Code will be generated on post
 ADMIN-POST-TEMPLATE = <b>{$name}</b> | code: <code>{$code}</code>
  ━━━━━━━━━━━━━━━━
  🎬 <b>Movie name:</b> {$name}
- 📅 <b>Your year
+ 📅 <b>Year of issue:</b> {$year}
+ 🕒 <b>Duration:</b> {$temp}
+
+ 📖 <b>Description:</b>
+ {$desc}
+
+ 🔍 <b>Search code:</b> <code>{$code}</code>
