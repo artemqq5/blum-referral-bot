@@ -98,7 +98,7 @@ ADMIN-POST-CHOICE_CHANNEL = Выберите канал для публикац�
 ADMIN-POST-SET_NAME = Название фильма: 🎬
 ADMIN-POST-SET_YEAR = Укажите год выпуска: 📅
 ADMIN-POST-SET_TEMP = Продолжительность фильма: ⏳
-ADMIN-POST-SET_DESC = Описание фильма (до 1000 символов): 📖
+ADMIN-POST-SET_DESC = Описание фильма (до 300 символов): 📖
 ADMIN-POST-SET_DESC_ERROR = Длина описания <b>{$size}</b>, а должно быть не более 1000 ❗️
 ADMIN-POST-SET_MEDIA = Файл медиа (видео\картинка): 🖼️🎥
 ADMIN-POST-SET_MEDIA_ERROR = Неверный формат, отправьте (Фото\Видео) в сжатом формате: ❌
@@ -116,13 +116,12 @@ ADMIN-POST-SEND_SUCCESS = Пост успешно опубликован! 🎉
 
 ADMIN-POST-CODE_REPLACE=Код будет сгенерирован при публикации
 
-ADMIN-POST-TEMPLATE = <b>{$name}</b> | код: <code>{$code}</code>
- ━━━━━━━━━━━━━━━━━
- 🎬 <b>Название фильма:</b> {$name}
- 📅 <b>Год выпуска:</b> {$year}
- 🕒 <b>Длительность:</b> {$temp}
+ADMIN-POST-TEMPLATE =
+    🎬 <b>Название фильма:</b> {$name}
+    📅 <b>Год выпуска:</b> {$year}
+    🕒 <b>Длительность:</b> {$temp}
 
- 📖 <b>Описание:</b>
- {$desc}
+    📖 <b>Описание:</b>
+    {$desc}
 
- 🔍 <b>Код для поиска:</b> <code>{$code}</code>
+    🔍 <b>Код для поиска:</b> <code>{$code}</code>

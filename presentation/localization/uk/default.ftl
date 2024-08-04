@@ -116,8 +116,7 @@ ADMIN-POST-SEND_SUCCESS = Пост успішно опубліковано! 🎉
 
 ADMIN-POST-CODE_REPLACE = Код буде згенеровано при публікації
 
-ADMIN-POST-TEMPLATE = <b>{$name}</b> | код: <code>{$code}</code>
-    ━━━━━━━━━━━━━━━━
+ADMIN-POST-TEMPLATE =
     🎬 <b>Назва фільму:</b> {$name}
     📅 <b>Рік випуску:</b> {$year}
     🕒 <b>Тривалість:</b> {$temp}

@@ -10,7 +10,7 @@ from data.repository.PostRepository import PostRepository
 from domain.notification.ChannelPost import ChannelPostMessage
 from domain.routers.admin.messaging.MessagingTools import MessagingTools
 from domain.states.GeneratePostState import GeneratePostState
-from presentation.keyboard_admin.kb_admin import CreatePost
+from presentation.keyboard_admin.kb_admin import CreatePost, kb_menu_admin
 from presentation.keyboard_admin.kb_post import kb_back_post, kb_back_post_skip_media, SkipMediaPost, SkipButtonPost, \
     kb_back_post_skip_button, kb_preview_post, PreviewPost, kb_repeat_button_post, RepeatButtonPost, channel_post_kb, \
     ChannelPost, ChannelPostPageCallback
@@ -71,7 +71,7 @@ async def set_post_temp(message: types.Message, state: FSMContext, i18n: I18nCon
 
 @router.message(GeneratePostState.Desc)
 async def set_post_desc(message: types.Message, state: FSMContext, i18n: I18nContext):
-    if len(message.text) > 1000:
+    if len(message.text) > 300:
         await message.answer(i18n.ADMIN.POST.SET_DESC_ERROR(size=len(message.text)), reply_markup=kb_back_post)
         return
 
@@ -164,4 +164,4 @@ async def send_post_to_channel(callback: CallbackQuery, state: FSMContext, i18n:
         await callback.answer(i18n.ADMIN.POST.SEND_ERROR_TG())
         return
 
-    await callback.message.answer(i18n.ADMIN.POST.SEND_SUCCESS())
+    await callback.message.edit_text(i18n.ADMIN.POST.SEND_SUCCESS(), reply_markup=kb_menu_admin)

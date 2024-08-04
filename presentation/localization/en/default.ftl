@@ -116,13 +116,12 @@ ADMIN-POST-SEND_SUCCESS = Post successfully published! 🎉
 
 ADMIN-POST-CODE_REPLACE = Code will be generated on post
 
-ADMIN-POST-TEMPLATE = <b>{$name}</b> | code: <code>{$code}</code>
- ━━━━━━━━━━━━━━━━
- 🎬 <b>Movie name:</b> {$name}
- 📅 <b>Year of issue:</b> {$year}
- 🕒 <b>Duration:</b> {$temp}
+ADMIN-POST-TEMPLATE =
+    🎬 <b>Movie name:</b> {$name}
+    📅 <b>Year of issue:</b> {$year}
+    🕒 <b>Duration:</b> {$temp}
 
- 📖 <b>Description:</b>
- {$desc}
+    📖 <b>Description:</b>
+    {$desc}
 
- 🔍 <b>Search code:</b> <code>{$code}</code>
+    🔍 <b>Search code:</b> <code>{$code}</code>
